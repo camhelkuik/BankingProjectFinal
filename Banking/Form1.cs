@@ -75,14 +75,11 @@ namespace Banking
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            //need to turn off constraints
-            this.savingsAccountsBindingSource.EndEdit();
             var accRow = finalProjectDBDataSet.SavingsAccounts.FindByAccountId(acc.AccountId);
 
             accRow.AccountId = int.Parse(txtAccount.Text);
             accRow.Balance = decimal.Parse(txtBalance.Text);
 
-            this.customersBindingSource.EndEdit();
             var custRow = finalProjectDBDataSet.Customers.FindByCustomerId(cust.CustomerId);
 
             custRow.Name = txtName.Text;

@@ -33,10 +33,6 @@ namespace Banking
             this.savingsAccountsTableAdapter.Fill(this.finalProjectDBDataSet.SavingsAccounts);
             // TODO: This line of code loads data into the 'finalProjectDBDataSet.Customers' table. You can move, or remove it, as needed.
             this.customersTableAdapter.Fill(this.finalProjectDBDataSet.Customers);
-            // TODO: This line of code loads data into the 'finalProjectDBDataSet.Customers' table. You can move, or remove it, as needed.
-            this.customersTableAdapter.Fill(this.finalProjectDBDataSet.Customers);
-            // TODO: This line of code loads data into the 'finalProjectDBDataSet.SavingsAccounts' table. You can move, or remove it, as needed.
-            this.savingsAccountsTableAdapter.Fill(this.finalProjectDBDataSet.SavingsAccounts);
 
             txtName.Clear();
             txtAddress.Clear();
@@ -48,7 +44,6 @@ namespace Banking
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            //TODO: doesn't seem to always create
             acc.AccountId = int.Parse(txtAccount.Text);
             acc.Balance = 0;
             acc.Interest = 0.01M;
@@ -83,15 +78,26 @@ namespace Banking
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            //TODO: doesn't seem to always update
+            this.savingsAccountsBindingSource.EndEdit();
+            var accRow = finalProjectDBDataSet.SavingsAccounts.FindByAccountId(acc.AccountId);
+
+            accRow.AccountId = int.Parse(txtAccount.Text);
+            accRow.Balance = decimal.Parse(txtBalance.Text);
+
+            this.customersBindingSource.EndEdit();
+            var custRow = finalProjectDBDataSet.Customers.FindByCustomerId(cust.CustomerId);
+
+            custRow.Name = txtName.Text;
+            custRow.Address = txtAddress.Text;
+            custRow.Phone = txtPhoneNumber.Text;
+            custRow.AccountId = int.Parse(txtAccount.Text);
+
             try
             {
                 this.Validate();
-                this.savingsAccountsBindingSource.EndEdit();
-                this.savingsAccountsTableAdapter.Update(this.finalProjectDBDataSet.SavingsAccounts);
+                this.savingsAccountsTableAdapter.Update(accRow);
 
-                this.customersBindingSource.EndEdit();
-                this.customersTableAdapter.Update(this.finalProjectDBDataSet.Customers);
+                this.customersTableAdapter.Update(custRow);
             }
             catch (Exception ex)
             {
@@ -101,10 +107,7 @@ namespace Banking
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            //TODO: doesn't seem to be grabbing the correct data
-            txtAddress.Clear();
-            txtPhoneNumber.Clear();
-
+            //TODO: Not finding the last added people
             var search = txtName.Text;
             finalProjectDBEntities dbcontext = new finalProjectDBEntities();
 
@@ -130,8 +133,6 @@ namespace Banking
                 listIndex = 0;
             }
 
-            dbcontext.Dispose();
-
             try
             {
                 txtName.Text = searchResultCustomer[0].Name.ToString();
@@ -142,6 +143,7 @@ namespace Banking
                 cust.Address = searchResultCustomer[0].Address.ToString();
                 cust.Phone = searchResultCustomer[0].Phone.ToString();
                 cust.AccountId = searchResultCustomer[0].AccountId;
+                cust.CustomerId = searchResultCustomer[0].CustomerId;
 
                 txtBalance.Text = searchResultCustomer[0].SavingsAccount.Balance.ToString();
                 txtAccount.Text = searchResultCustomer[0].SavingsAccount.AccountId.ToString();
@@ -175,6 +177,7 @@ namespace Banking
                 cust.Address = preItem.Address.ToString();
                 cust.Phone = preItem.Phone.ToString();
                 cust.AccountId = preItem.AccountId;
+                cust.CustomerId = preItem.CustomerId;
 
                 txtBalance.Text = preItem.SavingsAccount.Balance.ToString();
                 txtAccount.Text = preItem.SavingsAccount.AccountId.ToString();
@@ -210,6 +213,7 @@ namespace Banking
                 cust.Address = nextItem.Address.ToString();
                 cust.Phone = nextItem.Phone.ToString();
                 cust.AccountId = nextItem.AccountId;
+                cust.CustomerId = nextItem.CustomerId;
 
                 txtBalance.Text = nextItem.SavingsAccount.Balance.ToString();
                 txtAccount.Text = nextItem.SavingsAccount.AccountId.ToString();

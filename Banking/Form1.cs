@@ -28,9 +28,7 @@ namespace Banking
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'finalProjectDBDataSet.SavingsAccounts' table. You can move, or remove it, as needed.
             this.savingsAccountsTableAdapter.Fill(this.finalProjectDBDataSet.SavingsAccounts);
-            // TODO: This line of code loads data into the 'finalProjectDBDataSet.Customers' table. You can move, or remove it, as needed.
             this.customersTableAdapter.Fill(this.finalProjectDBDataSet.Customers);
 
             txtName.Clear();
@@ -165,7 +163,6 @@ namespace Banking
             }
         }
 
-        //previous is working
         private void btnPrevious_Click(object sender, EventArgs e)
         {
             List<SavingsAccount> accountSearch = new List<SavingsAccount>();
@@ -212,7 +209,6 @@ namespace Banking
             }
         }
 
-        //next is working
         private void btnNext_Click(object sender, EventArgs e)
         {
             List<SavingsAccount> accountSearch = new List<SavingsAccount>();
@@ -261,28 +257,24 @@ namespace Banking
             }
         }
 
-        //Deposit is working
         private void btnDeposit_Click(object sender, EventArgs e)
         {
             acc.Balance += int.Parse(txtWithdrawDeposit.Text);
             txtBalance.Text = acc.Balance.ToString();
         }
 
-        //Withdraw is working
         private void btnWithdraw_Click(object sender, EventArgs e)
         {
             acc.Balance -= int.Parse(txtWithdrawDeposit.Text);
             txtBalance.Text = acc.Balance.ToString();
         }
 
-        //Interst is working
         private void btnInterest_Click(object sender, EventArgs e)
         {
             var calc = acc.Interest * int.Parse(txtIntMonth.Text);
             txtCalcInterest.Text = calc.ToString();
         }
 
-        //clear is working
         private void btnClear_Click(object sender, EventArgs e)
         {
             txtName.Clear();

@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.Entity;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BankingModel;
-using System.Threading;
 
 namespace Banking
 {
@@ -75,14 +69,8 @@ namespace Banking
 
         }
 
-        public void GetAccount()
-        {
-
-        }
-
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            //will update acct everytime, but won't update customer
             acc.AccountId = int.Parse(txtAccount.Text);
             acc.Balance = decimal.Parse(txtBalance.Text);
 
@@ -91,6 +79,7 @@ namespace Banking
             accRow.Balance = acc.Balance;
             accRow.AccountId = acc.AccountId;
 
+            cust.Name = txtName.Text;
             cust.Address = txtAddress.Text;
             cust.Phone = txtPhoneNumber.Text;
             cust.AccountId = int.Parse(txtAccount.Text);
@@ -98,12 +87,10 @@ namespace Banking
             var custRow = finalProjectDBDataSet.Customers.FindByCustomerId(cust.CustomerId);
             custRow.SetModified();
 
-            custRow.Name = txtName.Text;
+            custRow.Name = cust.Name;
             custRow.Address = cust.Address;
             custRow.Phone = cust.Phone;
             custRow.AccountId = cust.AccountId;
-
-            
 
             try
             {
@@ -111,8 +98,6 @@ namespace Banking
                 this.customersTableAdapter.Update(custRow);
 
                 this.savingsAccountsTableAdapter.Update(accRow);
-
-                cust.Name = txtName.Text;
             }
             catch (Exception ex)
             {
@@ -122,14 +107,9 @@ namespace Banking
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            //can't find newly made changes until stopped and restarted
-            
-
             List<Customer> customerSearch = new List<Customer>();
             List<SavingsAccount> accountSearch = new List<SavingsAccount>();
             var search = txtName.Text;
-
-           
 
             using (finalProjectDBEntities context = new finalProjectDBEntities())
             {
@@ -254,7 +234,6 @@ namespace Banking
 
                 btnPrevious.Enabled = true;
             }
-
 
             if (listIndex == searchResultCustomer.Count - 1)
             {

@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.Entity;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BankingModel;
 
@@ -23,14 +18,13 @@ namespace Banking
         Customer cust = new Customer();
 
         List<Customer> searchResultCustomer = new List<Customer>();
+        finalProjectDBEntities context = new finalProjectDBEntities();
 
         public static int listIndex;
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'finalProjectDBDataSet.SavingsAccounts' table. You can move, or remove it, as needed.
             this.savingsAccountsTableAdapter.Fill(this.finalProjectDBDataSet.SavingsAccounts);
-            // TODO: This line of code loads data into the 'finalProjectDBDataSet.Customers' table. You can move, or remove it, as needed.
             this.customersTableAdapter.Fill(this.finalProjectDBDataSet.Customers);
 
             txtName.Clear();
@@ -77,27 +71,33 @@ namespace Banking
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            //need to turn off constraints
-            this.savingsAccountsBindingSource.EndEdit();
+            acc.AccountId = int.Parse(txtAccount.Text);
+            acc.Balance = decimal.Parse(txtBalance.Text);
+
             var accRow = finalProjectDBDataSet.SavingsAccounts.FindByAccountId(acc.AccountId);
 
-            accRow.AccountId = int.Parse(txtAccount.Text);
-            accRow.Balance = decimal.Parse(txtBalance.Text);
+            accRow.Balance = acc.Balance;
+            accRow.AccountId = acc.AccountId;
 
-            this.customersBindingSource.EndEdit();
+            cust.Name = txtName.Text;
+            cust.Address = txtAddress.Text;
+            cust.Phone = txtPhoneNumber.Text;
+            cust.AccountId = int.Parse(txtAccount.Text);
+
             var custRow = finalProjectDBDataSet.Customers.FindByCustomerId(cust.CustomerId);
+            custRow.SetModified();
 
-            custRow.Name = txtName.Text;
-            custRow.Address = txtAddress.Text;
-            custRow.Phone = txtPhoneNumber.Text;
-            custRow.AccountId = int.Parse(txtAccount.Text);
+            custRow.Name = cust.Name;
+            custRow.Address = cust.Address;
+            custRow.Phone = cust.Phone;
+            custRow.AccountId = cust.AccountId;
 
             try
             {
                 this.Validate();
-                this.savingsAccountsTableAdapter.Update(accRow);
-
                 this.customersTableAdapter.Update(custRow);
+
+                this.savingsAccountsTableAdapter.Update(accRow);
             }
             catch (Exception ex)
             {
@@ -111,7 +111,7 @@ namespace Banking
             List<SavingsAccount> accountSearch = new List<SavingsAccount>();
             var search = txtName.Text;
 
-            using (var context = new finalProjectDBEntities())
+            using (finalProjectDBEntities context = new finalProjectDBEntities())
             {
                 var query =
                 context.Customers
@@ -133,31 +133,26 @@ namespace Banking
 
             try
             {
-                txtName.Text = searchResultCustomer[0].Name.ToString();
-                txtAddress.Text = searchResultCustomer[0].Address.ToString();
-                txtPhoneNumber.Text = searchResultCustomer[0].Phone.ToString();
+                var custInfo = finalProjectDBDataSet.Customers.FindByCustomerId(searchResultCustomer[0].CustomerId);
 
-                cust.Name = searchResultCustomer[0].Name.ToString();
-                cust.Address = searchResultCustomer[0].Address.ToString();
-                cust.Phone = searchResultCustomer[0].Phone.ToString();
-                cust.AccountId = searchResultCustomer[0].AccountId;
+                txtName.Text = custInfo.Name.ToString();
+                txtAddress.Text = custInfo.Address.ToString();
+                txtPhoneNumber.Text = custInfo.Phone.ToString();
+
+                cust.Name = custInfo.Name.ToString();
+                cust.Address = custInfo.Address.ToString();
+                cust.Phone = custInfo.Phone.ToString();
+                cust.AccountId = custInfo.AccountId;
                 cust.CustomerId = searchResultCustomer[0].CustomerId;
 
-                using (var context = new finalProjectDBEntities())
-                {
-                    var query2 =
-                        context.SavingsAccounts
-                        .Where(acc => acc.AccountId == cust.AccountId);
+                var accInfo = finalProjectDBDataSet.SavingsAccounts.FindByAccountId(custInfo.AccountId);
 
-                    accountSearch.AddRange(query2);
-                }
+                txtBalance.Text = accInfo.Balance.ToString();
+                txtAccount.Text = accInfo.AccountId.ToString();
 
-                txtBalance.Text = accountSearch[0].Balance.ToString();
-                txtAccount.Text = accountSearch[0].AccountId.ToString();
-
-                acc.Balance = accountSearch[0].Balance;
-                acc.AccountId = accountSearch[0].AccountId;
-                acc.Interest = accountSearch[0].Interest;
+                acc.Balance = accInfo.Balance;
+                acc.AccountId = accInfo.AccountId;
+                acc.Interest = accInfo.Interest;
             }
             catch
             {
@@ -165,7 +160,6 @@ namespace Banking
             }
         }
 
-        //previous is working
         private void btnPrevious_Click(object sender, EventArgs e)
         {
             List<SavingsAccount> accountSearch = new List<SavingsAccount>();
@@ -174,34 +168,28 @@ namespace Banking
             if (listIndex > 0)
             {
                 preItem = searchResultCustomer[listIndex - 1];
+                var custInfo = finalProjectDBDataSet.Customers.FindByCustomerId(preItem.CustomerId);
 
                 listIndex--;
 
-                txtName.Text = preItem.Name;
-                txtAddress.Text = preItem.Address;
-                txtPhoneNumber.Text = preItem.Phone;
+                txtName.Text = custInfo.Name;
+                txtAddress.Text = custInfo.Address;
+                txtPhoneNumber.Text = custInfo.Phone;
 
-                cust.Name = preItem.Name.ToString();
-                cust.Address = preItem.Address.ToString();
-                cust.Phone = preItem.Phone.ToString();
-                cust.AccountId = preItem.AccountId;
+                cust.Name = custInfo.Name.ToString();
+                cust.Address = custInfo.Address.ToString();
+                cust.Phone = custInfo.Phone.ToString();
+                cust.AccountId = custInfo.AccountId;
                 cust.CustomerId = preItem.CustomerId;
 
-                using (var context = new finalProjectDBEntities())
-                {
-                    var query2 =
-                        context.SavingsAccounts
-                        .Where(acc => acc.AccountId == cust.AccountId);
+                var accInfo = finalProjectDBDataSet.SavingsAccounts.FindByAccountId(custInfo.AccountId);
 
-                    accountSearch.AddRange(query2);
-                }
+                txtBalance.Text = accInfo.Balance.ToString();
+                txtAccount.Text = accInfo.AccountId.ToString();
 
-                txtBalance.Text = accountSearch[0].Balance.ToString();
-                txtAccount.Text = accountSearch[0].AccountId.ToString();
-
-                acc.Balance = accountSearch[0].Balance;
-                acc.AccountId = accountSearch[0].AccountId;
-                acc.Interest = accountSearch[0].Interest;
+                acc.Balance = accInfo.Balance;
+                acc.AccountId = accInfo.AccountId;
+                acc.Interest = accInfo.Interest;
 
                 btnNext.Enabled = true;
             }
@@ -212,7 +200,6 @@ namespace Banking
             }
         }
 
-        //next is working
         private void btnNext_Click(object sender, EventArgs e)
         {
             List<SavingsAccount> accountSearch = new List<SavingsAccount>();
@@ -222,38 +209,31 @@ namespace Banking
             if (listIndex < searchResultCustomer.Count - 1)
             {
                 nextItem = searchResultCustomer[listIndex + 1];
+                var custInfo = finalProjectDBDataSet.Customers.FindByCustomerId(nextItem.CustomerId);
 
                 listIndex++;
 
-                txtName.Text = nextItem.Name;
-                txtAddress.Text = nextItem.Address;
-                txtPhoneNumber.Text = nextItem.Phone;
+                txtName.Text = custInfo.Name;
+                txtAddress.Text = custInfo.Address;
+                txtPhoneNumber.Text = custInfo.Phone;
 
-                cust.Name = nextItem.Name.ToString();
-                cust.Address = nextItem.Address.ToString();
-                cust.Phone = nextItem.Phone.ToString();
-                cust.AccountId = nextItem.AccountId;
+                cust.Name = custInfo.Name.ToString();
+                cust.Address = custInfo.Address.ToString();
+                cust.Phone = custInfo.Phone.ToString();
+                cust.AccountId = custInfo.AccountId;
                 cust.CustomerId = nextItem.CustomerId;
 
-                using (var context = new finalProjectDBEntities())
-                {
-                    var query2 =
-                        context.SavingsAccounts
-                        .Where(acc => acc.AccountId == cust.AccountId);
+                var accInfo = finalProjectDBDataSet.SavingsAccounts.FindByAccountId(custInfo.AccountId);
 
-                    accountSearch.AddRange(query2);
-                }
+                txtBalance.Text = accInfo.Balance.ToString();
+                txtAccount.Text = accInfo.AccountId.ToString();
 
-                txtBalance.Text = accountSearch[0].Balance.ToString();
-                txtAccount.Text = accountSearch[0].AccountId.ToString();
-
-                acc.Balance = accountSearch[0].Balance;
-                acc.AccountId = accountSearch[0].AccountId;
-                acc.Interest = accountSearch[0].Interest;
+                acc.Balance = accInfo.Balance;
+                acc.AccountId = accInfo.AccountId;
+                acc.Interest = accInfo.Interest;
 
                 btnPrevious.Enabled = true;
             }
-
 
             if (listIndex == searchResultCustomer.Count - 1)
             {
@@ -261,28 +241,24 @@ namespace Banking
             }
         }
 
-        //Deposit is working
         private void btnDeposit_Click(object sender, EventArgs e)
         {
             acc.Balance += int.Parse(txtWithdrawDeposit.Text);
             txtBalance.Text = acc.Balance.ToString();
         }
 
-        //Withdraw is working
         private void btnWithdraw_Click(object sender, EventArgs e)
         {
             acc.Balance -= int.Parse(txtWithdrawDeposit.Text);
             txtBalance.Text = acc.Balance.ToString();
         }
 
-        //Interst is working
         private void btnInterest_Click(object sender, EventArgs e)
         {
             var calc = acc.Interest * int.Parse(txtIntMonth.Text);
             txtCalcInterest.Text = calc.ToString();
         }
 
-        //clear is working
         private void btnClear_Click(object sender, EventArgs e)
         {
             txtName.Clear();

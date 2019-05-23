@@ -35,8 +35,8 @@
             this.txtIntMonth = new System.Windows.Forms.TextBox();
             this.txtWithdrawDeposit = new System.Windows.Forms.TextBox();
             this.txtBalance = new System.Windows.Forms.TextBox();
-            this.finalProjectDBDataSet = new Banking.finalProjectDBDataSet();
             this.savingsAccountsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.finalProjectDBDataSet = new Banking.finalProjectDBDataSet();
             this.customersTableAdapter = new Banking.finalProjectDBDataSetTableAdapters.CustomersTableAdapter();
             this.customersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.txtAccount = new System.Windows.Forms.TextBox();
@@ -59,8 +59,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.finalProjectDBDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.savingsAccountsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.finalProjectDBDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customersBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,7 +70,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(818, 134);
+            this.btnClear.Location = new System.Drawing.Point(818, 100);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(158, 40);
             this.btnClear.TabIndex = 77;
@@ -80,7 +80,7 @@
             // 
             // txtCalcInterest
             // 
-            this.txtCalcInterest.Location = new System.Drawing.Point(526, 736);
+            this.txtCalcInterest.Location = new System.Drawing.Point(526, 604);
             this.txtCalcInterest.Name = "txtCalcInterest";
             this.txtCalcInterest.ReadOnly = true;
             this.txtCalcInterest.Size = new System.Drawing.Size(258, 31);
@@ -88,14 +88,14 @@
             // 
             // txtIntMonth
             // 
-            this.txtIntMonth.Location = new System.Drawing.Point(194, 736);
+            this.txtIntMonth.Location = new System.Drawing.Point(194, 604);
             this.txtIntMonth.Name = "txtIntMonth";
             this.txtIntMonth.Size = new System.Drawing.Size(107, 31);
             this.txtIntMonth.TabIndex = 75;
             // 
             // txtWithdrawDeposit
             // 
-            this.txtWithdrawDeposit.Location = new System.Drawing.Point(275, 593);
+            this.txtWithdrawDeposit.Location = new System.Drawing.Point(275, 494);
             this.txtWithdrawDeposit.Name = "txtWithdrawDeposit";
             this.txtWithdrawDeposit.Size = new System.Drawing.Size(258, 31);
             this.txtWithdrawDeposit.TabIndex = 74;
@@ -103,21 +103,21 @@
             // txtBalance
             // 
             this.txtBalance.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.savingsAccountsBindingSource, "Balance", true));
-            this.txtBalance.Location = new System.Drawing.Point(275, 521);
+            this.txtBalance.Location = new System.Drawing.Point(275, 434);
             this.txtBalance.Name = "txtBalance";
             this.txtBalance.ReadOnly = true;
             this.txtBalance.Size = new System.Drawing.Size(258, 31);
             this.txtBalance.TabIndex = 73;
             // 
-            // finalProjectDBDataSet
-            // 
-            this.finalProjectDBDataSet.DataSetName = "finalProjectDBDataSet";
-            this.finalProjectDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // savingsAccountsBindingSource
             // 
             this.savingsAccountsBindingSource.DataMember = "SavingsAccounts";
             this.savingsAccountsBindingSource.DataSource = this.finalProjectDBDataSet;
+            // 
+            // finalProjectDBDataSet
+            // 
+            this.finalProjectDBDataSet.DataSetName = "finalProjectDBDataSet";
+            this.finalProjectDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // customersTableAdapter
             // 
@@ -131,7 +131,7 @@
             // txtAccount
             // 
             this.txtAccount.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.savingsAccountsBindingSource, "AccountId", true));
-            this.txtAccount.Location = new System.Drawing.Point(275, 447);
+            this.txtAccount.Location = new System.Drawing.Point(275, 371);
             this.txtAccount.Name = "txtAccount";
             this.txtAccount.Size = new System.Drawing.Size(258, 31);
             this.txtAccount.TabIndex = 72;
@@ -139,7 +139,7 @@
             // txtPhoneNumber
             // 
             this.txtPhoneNumber.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customersBindingSource, "Phone", true));
-            this.txtPhoneNumber.Location = new System.Drawing.Point(233, 248);
+            this.txtPhoneNumber.Location = new System.Drawing.Point(233, 214);
             this.txtPhoneNumber.Name = "txtPhoneNumber";
             this.txtPhoneNumber.Size = new System.Drawing.Size(258, 31);
             this.txtPhoneNumber.TabIndex = 71;
@@ -147,7 +147,7 @@
             // txtAddress
             // 
             this.txtAddress.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customersBindingSource, "Address", true));
-            this.txtAddress.Location = new System.Drawing.Point(233, 192);
+            this.txtAddress.Location = new System.Drawing.Point(233, 158);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(262, 31);
             this.txtAddress.TabIndex = 70;
@@ -155,14 +155,14 @@
             // txtName
             // 
             this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customersBindingSource, "Name", true));
-            this.txtName.Location = new System.Drawing.Point(233, 143);
+            this.txtName.Location = new System.Drawing.Point(233, 109);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(258, 31);
             this.txtName.TabIndex = 69;
             // 
             // btnInterest
             // 
-            this.btnInterest.Location = new System.Drawing.Point(818, 729);
+            this.btnInterest.Location = new System.Drawing.Point(818, 597);
             this.btnInterest.Name = "btnInterest";
             this.btnInterest.Size = new System.Drawing.Size(198, 38);
             this.btnInterest.TabIndex = 68;
@@ -172,7 +172,7 @@
             // 
             // btnWithdraw
             // 
-            this.btnWithdraw.Location = new System.Drawing.Point(818, 586);
+            this.btnWithdraw.Location = new System.Drawing.Point(818, 487);
             this.btnWithdraw.Name = "btnWithdraw";
             this.btnWithdraw.Size = new System.Drawing.Size(198, 38);
             this.btnWithdraw.TabIndex = 67;
@@ -182,7 +182,7 @@
             // 
             // btnDeposit
             // 
-            this.btnDeposit.Location = new System.Drawing.Point(564, 586);
+            this.btnDeposit.Location = new System.Drawing.Point(564, 487);
             this.btnDeposit.Name = "btnDeposit";
             this.btnDeposit.Size = new System.Drawing.Size(198, 38);
             this.btnDeposit.TabIndex = 66;
@@ -203,7 +203,7 @@
             // btnNext
             // 
             this.btnNext.Enabled = false;
-            this.btnNext.Location = new System.Drawing.Point(275, 312);
+            this.btnNext.Location = new System.Drawing.Point(275, 278);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(198, 38);
             this.btnNext.TabIndex = 63;
@@ -214,7 +214,7 @@
             // btnPrevious
             // 
             this.btnPrevious.Enabled = false;
-            this.btnPrevious.Location = new System.Drawing.Point(43, 312);
+            this.btnPrevious.Location = new System.Drawing.Point(43, 278);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(198, 38);
             this.btnPrevious.TabIndex = 62;
@@ -234,7 +234,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(538, 136);
+            this.btnSearch.Location = new System.Drawing.Point(538, 102);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(198, 38);
             this.btnSearch.TabIndex = 61;
@@ -245,7 +245,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(316, 742);
+            this.label9.Location = new System.Drawing.Point(316, 610);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(191, 25);
             this.label9.TabIndex = 60;
@@ -254,7 +254,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(39, 742);
+            this.label8.Location = new System.Drawing.Point(39, 610);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(149, 25);
             this.label8.TabIndex = 59;
@@ -263,7 +263,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(38, 599);
+            this.label7.Location = new System.Drawing.Point(38, 500);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(180, 25);
             this.label7.TabIndex = 58;
@@ -272,7 +272,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(38, 527);
+            this.label6.Location = new System.Drawing.Point(38, 440);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(90, 25);
             this.label6.TabIndex = 57;
@@ -281,7 +281,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(38, 453);
+            this.label5.Location = new System.Drawing.Point(38, 377);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(171, 25);
             this.label5.TabIndex = 56;
@@ -290,7 +290,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(38, 251);
+            this.label4.Location = new System.Drawing.Point(38, 217);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(155, 25);
             this.label4.TabIndex = 55;
@@ -299,7 +299,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(39, 198);
+            this.label3.Location = new System.Drawing.Point(39, 164);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(91, 25);
             this.label3.TabIndex = 54;
@@ -308,7 +308,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 149);
+            this.label1.Location = new System.Drawing.Point(38, 115);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(166, 25);
             this.label1.TabIndex = 53;
@@ -318,7 +318,7 @@
             // 
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1047, 806);
+            this.ClientSize = new System.Drawing.Size(1047, 700);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.txtCalcInterest);
             this.Controls.Add(this.txtIntMonth);
@@ -347,8 +347,8 @@
             this.Name = "Form1";
             this.Text = "Banking Form";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.finalProjectDBDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.savingsAccountsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.finalProjectDBDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customersBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
